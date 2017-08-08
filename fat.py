@@ -15,6 +15,24 @@ mitm_path = '/usr/bin/mitmdump'
 # firm_name = "wnap320.zip"
 # firm_brand = "netgear"
 
+def db_cleanup():
+       	print "Cleaning Database: "
+        drop_db_cmd='sudo -u postgres psql -c "DROP DATABASE IF EXISTS firmware;"'
+	subprocess.check_output(drop_db_cmd, shell=True)
+
+	# "Creating New Database: "
+        create_db_cmd='sudo -u postgres psql -c "CREATE DATABASE firmware OWNER firmadyne;"'
+	subprocess.check_output(create_db_cmd, shell=True)
+
+	#print "Creating New Database schema: "
+        create_schema_cmd = 'sudo -u postgres psql -d firmware < ./database/schema'
+        subprocess.check_output(create_schema_cmd, shell=True)
+
+        rm_images= 'sudo rm -rf images'
+        subprocess.check_output(rm_images, shell=True)
+
+	print " Database Clean Up Done"
+
 
 def Intro():
 	print """
@@ -92,6 +110,7 @@ def final(image_id):
 	print "Everything is done for the image id " + str(image_id)
 
 def main():
+	db_cleanup()
 	Intro()
 	getInfo()
 	print getInfo.firm_name
