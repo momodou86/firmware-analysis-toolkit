@@ -37,8 +37,7 @@ def db_cleanup():
 def Intro():
 	print """
 	Welcome to the Firmware Analysis Toolkit - v0.1
-	Offensive IoT Exploitation Training  - http://offensiveiotexploitation.com
-	By Attify - https://attify.com  | @attifyme
+	IoT Firmware Emulation tool
 	"""
 
 def do_extract():
